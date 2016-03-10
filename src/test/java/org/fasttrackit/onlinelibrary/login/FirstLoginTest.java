@@ -18,7 +18,7 @@ public class FirstLoginTest extends TestBase {
     public void whenEnterValidCredentialsSuccesfulLogin() {
 
         openLoginPage();//folosim functiile create mai jos
-        doLogin("eu@fast.com","eu.pass");
+        doLogin("eu@fast.com", "eu.pass");
 
         //Cauta un element dupa un atribut(id,div,buton,type, etc) si interactioneaza cu el (scrie in ele, da click pe el)
 
@@ -77,7 +77,7 @@ public class FirstLoginTest extends TestBase {
     private void assertThatErrorIs(String message) {// CTrl+Alt+M- creare metoda assertThatIs pentru a putea fi folosita de restul testelor referitoare la error message
         WebElement errorMsg = driver.findElement(By.className("error-msg"));//cauta in browser error message
         System.out.println(errorMsg.getText());//listeaza in consola error message
-        assertThat(errorMsg.getText(), is (message));
+        assertThat(errorMsg.getText(), is(message));
     }
 
     @Test
@@ -86,6 +86,8 @@ public class FirstLoginTest extends TestBase {
         doLogin("eu@fast.com", "");
         assertThatErrorIs("Please enter your password!");
 
+
+        //initial Selenium test
 //        WebElement errorMsg = driver.findElement(By.className("error-msg"));//cauta in browser error message
 //        System.out.println(errorMsg.getText());//listeaza in consola error message
 //        assertThat(errorMsg.getText(), is ("Please enter your password!"));
@@ -112,11 +114,13 @@ public class FirstLoginTest extends TestBase {
 
     }
 
+
+// homework
     @Test
     public void enterYahooMailAccountEmptySpamaAndTrashFolder() {
 
         openYahooLoginPage();
-        doYahooLogin("","");
+        doYahooLogin("", "");
         emptySpamAndTrash();
 
 
