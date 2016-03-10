@@ -65,7 +65,13 @@ public class FirstLoginTest extends TestBase {
 //        }
 
     }
+    @Test
+    public void whenNoEnterCredentialsIGetErrorMessage() {
+        openLoginPage();
+        doLogin("", "");
+        assertThatErrorIs("Please enter your email!");
 
+    }
     @Test
     public void whenEnterOnlyPasswordGetErrorMessage() {
         openLoginPage();
