@@ -9,6 +9,9 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 public class FirstLoginTest extends TestBase {
 
     @Test
@@ -43,11 +46,13 @@ public class FirstLoginTest extends TestBase {
         }
     }
 
-    @Test (dependsOnMethods = "whenEnterValidCredentialsSuccesfulLogin", alwaysRun = true)
+    @Test
     public void whenEnterInvalidPasswordIGetErrorMessage() {
         openLoginPage();
         doLogin("eu@fast.com", "eu.passx");
-
+        WebElement errorMsg = driver.findElement(By.className("error-msg"));//cauta in browser error message
+        System.out.println(errorMsg.getText());//listeaza in consola error message
+        assertThat(errorMsg.getText(), is ("Invalid user or password!"));
 
 //        try {
 //            WebElement logOutBtn = driver.findElement(By.linkText("Logout"));
@@ -79,28 +84,12 @@ public class FirstLoginTest extends TestBase {
     }
 
     @Test
-    public void enterYahooMailAccountEmptySpamFolder() {
+    public void enterYahooMailAccountEmptySpamaAndTrashFolder() {
 
-        System.out.println("open Yahoo Login page");
-        driver.get("https://login.yahoo.com/?.src=ym&.intl=us&.lang=en-US&.done=https%3a//mail.yahoo.com");
+        openYahooLoginPage();
+        doYahooLogin("","");
+        emptySpamAndTrash();
 
-
-        WebElement emailField = driver.findElement(By.id("login-username"));
-        emailField.sendKeys("");
-
-        WebElement continueBtn = driver.findElement(By.id("login-signin"));
-        continueBtn.click();
-        Utils.sleep(2000);
-
-        WebElement passwordField = driver.findElement(By.id("login-passwd"));
-        passwordField.sendKeys("");
-
-
-        WebElement autentificareBtn = driver.findElement(By.id("login-signin"));
-        autentificareBtn.click();
-        Utils.sleep(2000);
-        WebElement emptySpamFolder = driver.findElement(By.tagName("Empty all the messages from the Spam folder"));
-        emptySpamFolder.click();
 
         try {
             WebElement logOutBtn = driver.findElement(By.linkText("Sign Out"));
@@ -108,5 +97,35 @@ public class FirstLoginTest extends TestBase {
         } catch (NoSuchElementException exception) {
             Assert.fail("could not find logout button");
         }
+    }
+
+    private void emptySpamAndTrash() {
+
+        WebElement emptySpamFolder = driver.findElement(By.linkText("[Empty]"));
+        emptySpamFolder.click();
+
+    }
+
+    private void doYahooLogin(String yahoousername, String yahoopassword) {
+        WebElement emailField = driver.findElement(By.id("login-username"));
+        emailField.sendKeys(yahoousername);
+
+        WebElement continueBtn = driver.findElement(By.id("login-signin"));
+        continueBtn.click();
+        Utils.sleep(2000);
+
+        WebElement passwordField = driver.findElement(By.id("login-passwd"));
+        passwordField.sendKeys(yahoopassword);
+
+
+        WebElement autentificareBtn = driver.findElement(By.id("login-signin"));
+        autentificareBtn.click();
+        Utils.sleep(2000);
+
+    }
+
+    private void openYahooLoginPage() {
+        System.out.println("open Yahoo Login page");
+        driver.get("https://login.yahoo.com/?.src=ym&.intl=us&.lang=en-US&.done=https%3a//mail.yahoo.com");
     }
 }
