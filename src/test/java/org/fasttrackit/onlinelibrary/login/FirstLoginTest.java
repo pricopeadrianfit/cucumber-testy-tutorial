@@ -114,7 +114,6 @@ public class FirstLoginTest extends TestBase {
 
     }
 
-
 // homework
     @Test
     public void enterYahooMailAccountEmptySpamaAndTrashFolder() {
