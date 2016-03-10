@@ -6,6 +6,9 @@ import com.sdl.selenium.web.button.Button;
 import com.sdl.selenium.web.button.InputButton;
 import com.sdl.selenium.web.form.TextField;
 import com.sdl.selenium.web.link.WebLink;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -81,5 +84,29 @@ public class TestyUtilitySteps extends TestBase {
     public void I_mouse_over_on_element_with_text(String text) {
         WebLocator element = new WebLocator().setText(text);
         element.mouseOver();
+    }
+    int a;
+    @Given("^I add first number$")
+    public void iAddFirstNumber() throws Throwable {
+        a=3;
+        throw new PendingException();
+    }
+    int b;
+    @And("^I add second number$")
+    public void iAddSecondNumber() throws Throwable {
+        b=6;
+        throw new PendingException();
+    }
+    int x;
+    @When("^I press add$")
+    public void iPressAdd() throws Throwable {
+        x = a+b;
+        throw new PendingException();
+    }
+
+    @Then("^I should get the correct result$")
+    public void iShouldGetTheCorrectResult() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
     }
 }
