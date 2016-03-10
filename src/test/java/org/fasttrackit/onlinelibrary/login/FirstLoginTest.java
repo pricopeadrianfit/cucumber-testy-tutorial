@@ -50,9 +50,12 @@ public class FirstLoginTest extends TestBase {
     public void whenEnterInvalidPasswordIGetErrorMessage() {
         openLoginPage();
         doLogin("eu@fast.com", "eu.passx");
-        WebElement errorMsg = driver.findElement(By.className("error-msg"));//cauta in browser error message
-        System.out.println(errorMsg.getText());//listeaza in consola error message
-        assertThat(errorMsg.getText(), is ("Invalid user or password!"));
+        assertThatErrorIs("Invalid user or password!");
+
+
+//        WebElement errorMsg = driver.findElement(By.className("error-msg"));//cauta in browser error message
+//        System.out.println(errorMsg.getText());//listeaza in consola error message
+//        assertThat(errorMsg.getText(), is ("Invalid user or password!"));
 
 //        try {
 //            WebElement logOutBtn = driver.findElement(By.linkText("Logout"));
@@ -60,6 +63,32 @@ public class FirstLoginTest extends TestBase {
 //        } catch (NoSuchElementException exception) {
 //            Assert.fail("could not find logout button");
 //        }
+
+    }
+
+    @Test
+    public void whenEnterOnlyPasswordGetErrorMessage() {
+        openLoginPage();
+        doLogin("", "eu.pass");
+        assertThatErrorIs("Please enter your email!");
+
+    }
+
+    private void assertThatErrorIs(String message) {// CTrl+Alt+M- creare metoda assertThatIs pentru a putea fi folosita de restul testelor referitoare la error message
+        WebElement errorMsg = driver.findElement(By.className("error-msg"));//cauta in browser error message
+        System.out.println(errorMsg.getText());//listeaza in consola error message
+        assertThat(errorMsg.getText(), is (message));
+    }
+
+    @Test
+    public void whenEnterOnlyEmailIGetErrorMessage() {
+        openLoginPage();
+        doLogin("eu@fast.com", "");
+        assertThatErrorIs("Please enter your password!");
+
+//        WebElement errorMsg = driver.findElement(By.className("error-msg"));//cauta in browser error message
+//        System.out.println(errorMsg.getText());//listeaza in consola error message
+//        assertThat(errorMsg.getText(), is ("Please enter your password!"));
 
     }
 
