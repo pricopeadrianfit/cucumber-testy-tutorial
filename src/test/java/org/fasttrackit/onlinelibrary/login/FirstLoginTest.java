@@ -123,7 +123,6 @@ public class FirstLoginTest extends TestBase {
         doYahooLogin("", "");
         emptySpamAndTrash();
 
-
         try {
             WebElement logOutBtn = driver.findElement(By.linkText("Sign Out"));
             logOutBtn.click();
