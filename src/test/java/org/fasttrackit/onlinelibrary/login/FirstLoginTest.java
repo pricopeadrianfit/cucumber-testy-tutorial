@@ -6,6 +6,7 @@ import org.fasttrackit.util.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Sleeper;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -38,12 +39,12 @@ public class FirstLoginTest extends TestBase {
 //        loginBtn.click();
 
 //        driver.findElement(By.id("loginButton")).);
-        try {                                                                   //cand e posibil sa nu gasim butonlu de logout(logarea nu a fost posibila -parol/user gresite) trebuie sa facem cu try &catch exception.
-            WebElement logOutBtn = driver.findElement(By.linkText("Logout"));
-            logOutBtn.click();
-        } catch (NoSuchElementException exception) {
-            Assert.fail("could not find logout button");
-        }
+//        try {                                                                   //cand e posibil sa nu gasim butonlu de logout(logarea nu a fost posibila -parol/user gresite) trebuie sa facem cu try &catch exception.
+//            WebElement logOutBtn = driver.findElement(By.linkText("Logout"));
+//            logOutBtn.click();
+//        } catch (NoSuchElementException exception) {
+//            Assert.fail("could not find logout button");
+//        }
     }
 
     @Test
@@ -99,6 +100,38 @@ public class FirstLoginTest extends TestBase {
 //        assertThat(errorMsg.getText(), is ("Please enter your password!"));
 
     }
+
+    //x path and css selector testing
+    @Test
+    public void succesChangePassword ( ){
+        whenEnterValidCredentialsSuccesfulLogin();
+        changePassword("eu.pass","eu.pass2");
+
+        WebElement statusMsg = driver.findElement(By.cssSelector("#preferences-win .status-msg"));//cauta in browser fereastra preferences si in ea cauta  status message
+        System.out.println(statusMsg.getText());//listeaza in consola error message
+        assertThat(statusMsg.getText(), is ("Your password has been successfully changed."));
+
+    }
+
+    private void changePassword(String currentPass, String newPass) {
+        WebElement preferenceButton = driver.findElement(By.xpath("//nav//button"));
+        preferenceButton.click();
+        Utils.sleep(300);
+
+        WebElement currentPasswordField = driver.findElement(By.xpath("//div[@id='preferences-win']//input[@name='password']"));
+        currentPasswordField.sendKeys(currentPass);
+
+
+        WebElement newPasswordField = driver.findElement(By.xpath("//div[@id='preferences-win']//input[@name='newPassword']"));
+        newPasswordField.sendKeys(newPass);
+
+        WebElement repeatNewPasswordField = driver.findElement(By.xpath("//div[@id='preferences-win']//input[@name='newPasswordRepeat']"));
+        repeatNewPasswordField.sendKeys(newPass);
+
+        WebElement saveButton = driver.findElement(By.cssSelector("#preferences-win button.btn-warning"));
+        saveButton.click();
+    }
+
 
     private void doLogin(String userName, String password) {
 
