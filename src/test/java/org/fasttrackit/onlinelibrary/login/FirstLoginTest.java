@@ -113,6 +113,7 @@ public class FirstLoginTest extends TestBase {
 
     }
 
+
     private void changePassword(String currentPass, String newPass) {
         WebElement preferenceButton = driver.findElement(By.xpath("//nav//button"));
         preferenceButton.click();
