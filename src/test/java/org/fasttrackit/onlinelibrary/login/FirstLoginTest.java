@@ -160,6 +160,7 @@ public class FirstLoginTest extends TestBase {
         }
     }
 
+
     private void emptySpamAndTrash() {
 
         WebElement emptySpamFolder = driver.findElement(By.linkText("[Empty]"));
