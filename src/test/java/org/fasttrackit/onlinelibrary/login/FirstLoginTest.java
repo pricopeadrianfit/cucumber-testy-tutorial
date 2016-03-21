@@ -8,12 +8,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Sleeper;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
 
 public class FirstLoginTest extends TestBase {
 
@@ -106,36 +103,26 @@ public class FirstLoginTest extends TestBase {
 
     }
 
-    //x path and css selector testing
-    @Test
-    public void succesChangePassword() {
-        whenEnterValidCredentialsSuccesfulLogin();
-        changePassword("eu.pass", "eu.pass2");
 
-        WebElement statusMsg = driver.findElement(By.cssSelector("#preferences-win .status-msg"));//cauta in browser fereastra preferences si in ea cauta  status message
-        System.out.println(statusMsg.getText());//listeaza in consola error message
-        assertThat(statusMsg.getText(), is("Your password has been successfully changed."));
-
-    }
-
-    private void changePassword(String currentPass, String newPass) {
-        WebElement preferenceButton = driver.findElement(By.xpath("//nav//button"));
-        preferenceButton.click();
-        Utils.sleep(300);
-
-        WebElement currentPasswordField = driver.findElement(By.xpath("//div[@id='preferences-win']//input[@name='password']"));
-        currentPasswordField.sendKeys(currentPass);
-
-
-        WebElement newPasswordField = driver.findElement(By.xpath("//div[@id='preferences-win']//input[@name='newPassword']"));
-        newPasswordField.sendKeys(newPass);
-
-        WebElement repeatNewPasswordField = driver.findElement(By.xpath("//div[@id='preferences-win']//input[@name='newPasswordRepeat']"));
-        repeatNewPasswordField.sendKeys(newPass);
-
-        WebElement saveButton = driver.findElement(By.cssSelector("#preferences-win button.btn-warning"));
-        saveButton.click();
-    }
+//  initial version -
+//  private void changePassword(String currentPass, String newPass) {
+////        WebElement preferenceButton = driver.findElement(By.xpath("//nav//button"));
+////        preferenceButton.click();
+////        Utils.sleep(300);
+////
+////        WebElement currentPasswordField = driver.findElement(By.xpath("//div[@id='preferences-win']//input[@name='password']"));
+////        currentPasswordField.sendKeys(currentPass);
+////
+////
+////        WebElement newPasswordField = driver.findElement(By.xpath("//div[@id='preferences-win']//input[@name='newPassword']"));
+////        newPasswordField.sendKeys(newPass);
+////
+////        WebElement repeatNewPasswordField = driver.findElement(By.xpath("//div[@id='preferences-win']//input[@name='newPasswordRepeat']"));
+////        repeatNewPasswordField.sendKeys(newPass);
+////
+////        WebElement saveButton = driver.findElement(By.cssSelector("#preferences-win button.btn-warning"));
+////        saveButton.click();
+//    }
 
 
     private void openLoginPage() {
