@@ -1,5 +1,6 @@
 package org.fasttrackit.Example;
 
+import com.sdl.selenium.web.utils.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

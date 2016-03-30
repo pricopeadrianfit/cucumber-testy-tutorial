@@ -1,31 +1,31 @@
 package org.fasttrackit.onlinelibrary.login;
 
 
+import com.sdl.selenium.web.link.WebLink;
 import com.sdl.selenium.web.utils.Utils;
-import org.fasttrackit.Example.LoginPage;
+import org.fasttrackit.Example.LoginView;
 import org.fasttrackit.util.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
 public class FirstLoginTest extends TestBase {
 
-    private LoginPage loginPage;
+    private LoginView loginPage = new LoginView();// nu am schimbat numele loginPage in loginView pt a nu mai schimba mai jos la toate testele
 
-    public FirstLoginTest() {
-        loginPage = PageFactory.initElements(driver, LoginPage.class);
 
-    }
 
     @Test
     public void whenEnterValidCredentialsSuccesfulLogin() {
 
         openLoginPage();//folosim functiile create mai jos
         loginPage.doLogin("eu@fast.com", "eu.pass");
+        WebLink logoutBtn = new WebLink().setText("Logout");
+        logoutBtn.assertClick();
+
 //        doLogin("eu@fast.com", "eu.pass");
 
         //Cauta un element dupa un atribut(id,div,buton,type, etc) si interactioneaza cu el (scrie in ele, da click pe el)

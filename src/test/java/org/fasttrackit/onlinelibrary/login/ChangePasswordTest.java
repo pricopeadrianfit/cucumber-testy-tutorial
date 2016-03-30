@@ -3,8 +3,10 @@ package org.fasttrackit.onlinelibrary.login;
 
 import com.sdl.selenium.web.utils.Utils;
 import org.fasttrackit.Example.ChangePasswordPage;
+import org.fasttrackit.Example.ChangePasswordView;
 import org.fasttrackit.Example.LoginPage;
 import org.fasttrackit.Example.NavigationBarPage;
+import org.fasttrackit.Forms.FirstFormView;
 import org.fasttrackit.util.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -16,13 +18,23 @@ import org.testng.annotations.Test;
 public class ChangePasswordTest extends TestBase {
 
     private LoginPage loginPage;
-    private ChangePasswordPage changePasswordPage;
+    private ChangePasswordView changePasswordView;
     private NavigationBarPage navigationBarPage;
 
     public ChangePasswordTest() {
         loginPage = PageFactory.initElements(driver, LoginPage.class);
-        changePasswordPage = PageFactory.initElements(driver, ChangePasswordPage.class);
+        changePasswordView = PageFactory.initElements(driver, ChangePasswordView.class);
         navigationBarPage = PageFactory.initElements(driver, NavigationBarPage.class);
+    }
+
+    @Test
+    public void changeDateTest() {
+        openLoginPage();//folosim functiile create mai jos
+        loginPage.doLogin("eu@fast.com", "eu.pass");
+        FirstFormView form = new FirstFormView();
+        form.selectCalendar.assertClick();
+        form.datePicker.select("25/09/2013");
+
     }
 
     @Test
@@ -37,9 +49,9 @@ public class ChangePasswordTest extends TestBase {
     public void succesChangePassword() {
         whenEnterValidCredentialsSuccesfulLogin();
         navigationBarPage.openPreferences();
-        changePasswordPage.changePassword("eu.pass", "eu.pass2");
-        changePasswordPage.AssertThatStatusIs("Your password has been successfully changed.");
-        navigationBarPage.logout();
+        changePasswordView.changePassword("eu.pass", "eu.pass2");
+     //   changePasswordView.getStatusMessage("Your password has been successfully changed.");
+       // navigationBarPage.logout();
     }
 
     private void openLoginPage() {
