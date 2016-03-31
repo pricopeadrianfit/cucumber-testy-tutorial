@@ -24,7 +24,7 @@ public class FirstLoginTest extends TestBase {
         openLoginPage();//folosim functiile create mai jos
         loginPage.doLogin("eu@fast.com", "eu.pass");
         WebLink logoutBtn = new WebLink().setText("Logout");
-        logoutBtn.assertClick();
+      //  logoutBtn.assertClick();
 
 //        doLogin("eu@fast.com", "eu.pass");
 
