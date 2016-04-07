@@ -55,11 +55,11 @@ public class FirstLoginTest extends TestBase {
 //        }
     }
 
-    @Test
-    public void whenEnterInvalidPasswordIGetErrorMessage() {
-        openLoginPage();
-        loginPage.doLogin("eu@fast.com", "eu.passx");
-        loginPage.assertThatErrorIs("Invalid user or password!");
+//    @Test
+//    public void whenEnterInvalidPasswordIGetErrorMessage() {
+//        openLoginPage();
+//        loginPage.doLogin("eu@fast.com", "eu.passx");
+//        loginPage.assertThatErrorIs("Invalid user or password!");
 
 //        WebElement errorMsg = driver.findElement(By.className("error-msg"));//cauta in browser error message
 //        System.out.println(errorMsg.getText());//listeaza in consola error message
@@ -71,47 +71,48 @@ public class FirstLoginTest extends TestBase {
 //        } catch (NoSuchElementException exception) {
 //            Assert.fail("could not find logout button");
 //        }
-    }
+//    }
     @DataProvider
     public static Object[][] invalidLogin(){
         return new Object[][] {
-                {"eu@fast.com","eu.passx","Invalid user or password!"},
-                {"",           "eu.pass", "Please enter your email!"},
-                {"eu@fast.com",""       , "Please enter your password!"}
+                {"eu@fast.com","eu.passx","Invalid user or password!",true},
+                {"",           "eu.pass", "Please enter your email!",false},
+                {"eu@fast.com","",        "Please enter your password!",false},
+                {"",           "",        "Please enter your email!",false}
         };
 
     }
 
     @Test(dataProvider = "invalidLogin")
-    public void invalidLoginTest(String email, String password,String errorMsg){
+    public void invalidLoginTest(String email, String password,String errorMsg, boolean hasCredentials){
         System.out.println("invalid login test"+ email+"_"+password+"_"+errorMsg);
         openLoginPage();
         loginPage.doLogin(email,password);
         loginPage.assertThatErrorIs(errorMsg);
     }
 
-    @Test
-    public void whenNoEnterCredentialsIGetErrorMessage() {
-        openLoginPage();
-        loginPage.doLogin("", "");
-        loginPage.assertThatErrorIs("Please enter your email!");
+//    @Test
+//    public void whenNoEnterCredentialsIGetErrorMessage() {
+//        openLoginPage();
+//        loginPage.doLogin("", "");
+//        loginPage.assertThatErrorIs("Please enter your email!");
+//
+//    }
 
-    }
-
-    @Test
-    public void whenEnterOnlyPasswordGetErrorMessage() {
-        openLoginPage();
-        loginPage.doLogin("", "eu.pass");
-        loginPage.assertThatErrorIs("Please enter your email!");
-
-    }
-
-
-    @Test
-    public void whenEnterOnlyEmailIGetErrorMessage() {
-        openLoginPage();
-        loginPage.doLogin("eu@fast.com", "");
-        loginPage.assertThatErrorIs("Please enter your password!");
+//    @Test
+//    public void whenEnterOnlyPasswordGetErrorMessage() {
+//        openLoginPage();
+//        loginPage.doLogin("", "eu.pass");
+//        loginPage.assertThatErrorIs("Please enter your email!");
+//
+//    }
+//
+//
+//    @Test
+//    public void whenEnterOnlyEmailIGetErrorMessage() {
+//        openLoginPage();
+//        loginPage.doLogin("eu@fast.com", "");
+//        loginPage.assertThatErrorIs("Please enter your password!");
 
 
         //initial Selenium test
@@ -119,7 +120,7 @@ public class FirstLoginTest extends TestBase {
 //        System.out.println(errorMsg.getText());//listeaza in consola error message
 //        assertThat(errorMsg.getText(), is ("Please enter your password!"));
 
-    }
+//    }
 
 
 //  initial version -
