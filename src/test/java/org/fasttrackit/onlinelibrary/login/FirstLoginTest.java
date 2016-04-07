@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 
@@ -70,6 +71,23 @@ public class FirstLoginTest extends TestBase {
 //        } catch (NoSuchElementException exception) {
 //            Assert.fail("could not find logout button");
 //        }
+    }
+    @DataProvider
+    public static Object[][] invalidLogin(){
+        return new Object[][] {
+                {"eu@fast.com","eu.passx","Invalid user or password!"},
+                {"",           "eu.pass", "Please enter your email!"},
+                {"eu@fast.com",""       , "Please enter your password!"}
+        };
+
+    }
+
+    @Test(dataProvider = "invalidLogin")
+    public void invalidLoginTest(String email, String password,String errorMsg){
+        System.out.println("invalid login test"+ email+"_"+password+"_"+errorMsg);
+        openLoginPage();
+        loginPage.doLogin(email,password);
+        loginPage.assertThatErrorIs(errorMsg);
     }
 
     @Test

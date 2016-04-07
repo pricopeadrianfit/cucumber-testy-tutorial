@@ -33,7 +33,7 @@ public class ChangePasswordTest extends TestBase {
         loginPage.doLogin("eu@fast.com", "eu.pass");
         FirstFormView form = new FirstFormView();
         form.selectCalendar.assertClick();
-        form.datePicker.select("25/09/2013");
+      //  form.datePicker.select("25/09/2013");
 
     }
 
