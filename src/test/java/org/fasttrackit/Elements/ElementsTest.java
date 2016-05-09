@@ -5,15 +5,17 @@ import com.sdl.selenium.bootstrap.button.UploadFile;
 import com.sdl.selenium.bootstrap.form.Form;
 import com.sdl.selenium.bootstrap.form.SelectPicker;
 import com.sdl.selenium.bootstrap.form.TextField;
+import com.sdl.selenium.utils.config.WebDriverConfig;
 import com.sdl.selenium.web.WebLocator;
 import com.sdl.selenium.web.utils.PropertiesReader;
-import org.fasttrackit.Example.ChangePasswordView;
-import org.fasttrackit.Example.DropDownList;
-import org.fasttrackit.Example.LoginPage;
-import org.fasttrackit.Example.NavigationBarPage;
+import com.sdl.selenium.web.utils.Utils;
+import org.fasttrackit.Example.*;
 import org.fasttrackit.Forms.FirstFormView;
 import org.fasttrackit.util.TestBase;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -95,4 +97,44 @@ public class ElementsTest extends TestBase {
         emailField.sendKeys(Keys.ENTER); //apasarea unei taste
 
     }
+
+    @Test
+    public void scrollForViewTest() {
+        driver.get("http://examples.sencha.com/extjs/6.0.2/examples/");
+        GridsView gridsView= new GridsView();
+
+        gridsView.openGrid();
+        WebDriverConfig.switchToLastTab();
+
+        WebLocator person = new WebLocator().setText("Sidney Sheldon");
+        person.click();
+
+        WebLocator headerCt= new WebLocator().setClasses("x-grid-header-ct");
+        WebLocator header = new WebLocator(headerCt).setText("Manufacturer");
+        WebLocator header2 = new WebLocator(headerCt).setText("Title");
+
+
+        header.click();
+        header2.findElement();
+        {new Actions(driver).dragAndDrop(header.currentElement,header2.currentElement).perform();} // drag and drop in a grid
+    }
+
+    @Test
+    public void scrollTest() {
+        driver.get("http://examples.sencha.com/extjs/6.0.2/examples/");
+        GridsView gridsView= new GridsView();
+
+        gridsView.openGrid("Miscellaneous", "Resizable");
+        WebDriverConfig.switchToLastTab();
+
+
+        WebLocator basic= new WebLocator().setId("basic");
+        WebLocator header = new WebLocator(basic).setClasses("x-resizable-handle-east");
+
+
+
+        header.findElement();
+        {new Actions(driver).dragAndDropBy(header.currentElement, 500, 0).perform();} // drag and drop in a grid
+    }
+
 }
